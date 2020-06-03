@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"> 
+   <style> 
+      .navigate {
+         background-color: #16751e; 
+      }
+
+      a:link {
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
+         font-size: 20px;
+         color: white; 
+         font-weight: 900;
+      } 
+
+      a:hover {
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
+         font-size: 20px;
+         color: black;
+         font-weight: 900; 
+      } 
+
+      body {
+         background-color: #b5f5dc;
+      }
+
+      input[type=text] {
+         background-color: #c2f2ea;
+      }   
+
+      input[type=password] {
+         background-color: #c2f2ea; 
+      }
+   </style>
+   {% if title %}
+   <title>Tasksent</title>
+   {% else %}
+   <title>Tasksent. The better scheduler.</title>
+   {% endif %}
+</head>
+
+<body>
+   <div class="navigate">
+
+      <button class="btn btn-link">
+         <a href="/home">Home</a>
+      </button>
+
+      <button class="btn btn-link">
+         <a href="/">About Us</a>
+      </button>
+
+      {% if session['username'] %}
+
+      <button class="btn btn-link">
+         <a href="/meetings">Meetings</a>
+      </button>
+
+      <button class="btn btn-link">
+         <a href="/settings">Settings</a>
+      </button>
+
+      <button class="btn btn-link">
+         <a href="/logout">Logout</a>
+      </button>
+
+      {% else %}
+
+      <button class="btn btn-link">
+         <a href="/login">Login</a>
+      </button>
+
+      <button class="btn btn-link">
+         <a href="/create-account">Create Account</a>
+      </button>
+
+      {% endif %}
+
+   </div>
+   <hr>
+   <hr>
+
+   {% block content %}{% endblock %}
+
+   {% with messages = get_flashed_messages() %}
+   {% if messages %}
+   <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+   </ul>
+   {% endif %}
+   {% endwith %}
+
+</body>
+
+</html>
